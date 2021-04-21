@@ -39,6 +39,9 @@ if __name__ == '__main__':
             if cv2.contourArea(contour) < 500:
                 continue
 
+            (x, y, w, h) = cv2.boundingRect(c)
+            cv2.rectangle(curr_frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
         cv2.imshow("Security Feed", curr_frame)
         cv2.imshow("Thresh", thresh)
         cv2.imshow("Frame Delta", frame_delta)
