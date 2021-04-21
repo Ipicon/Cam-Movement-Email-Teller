@@ -39,8 +39,9 @@ if __name__ == '__main__':
             if cv2.contourArea(contour) < 500:
                 continue
 
-            print('Movement Occured')
-
+        cv2.imshow("Security Feed", curr_frame)
+        cv2.imshow("Thresh", thresh)
+        cv2.imshow("Frame Delta", frame_delta)
         key_listener = cv2.waitKey(1) & 0xFF
 
         if key_listener == ord("q"):
