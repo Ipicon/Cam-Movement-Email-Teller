@@ -4,6 +4,7 @@ import imutils
 import smtplib
 from decouple import config
 from imutils.video import VideoStream
+from datetime import datetime
 
 EMAIL = config('EMAIL')
 PASSWORD = config('PASSWORD')
@@ -12,7 +13,7 @@ SMTP_SERVER = "smtp.gmail.com"
 MESSAGE = """\
     Subject: DETECTED MOVEMENT
 
-    Connected cam detected movement."""
+    Connected cam detected movement on %s."""
 
 
 def login_to_gmail():
@@ -61,8 +62,10 @@ if __name__ == '__main__':
             cv2.rectangle(curr_frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
             if time.time() - prev_time > 59:
+                current_msg = MESSAGE % datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+                email_server.sendmail(EMAIL, RECEIVER_EMAIL, current_msg)
+
                 prev_time = time.time()
-                email_server.sendmail(EMAIL, RECEIVER_EMAIL, MESSAGE)
 
         cv2.imshow("Security Feed", curr_frame)
         cv2.imshow("Thresh", thresh)
