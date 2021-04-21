@@ -39,7 +39,7 @@ if __name__ == '__main__':
             if cv2.contourArea(contour) < 500:
                 continue
 
-            (x, y, w, h) = cv2.boundingRect(c)
+            (x, y, w, h) = cv2.boundingRect(contour)
             cv2.rectangle(curr_frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
         cv2.imshow("Security Feed", curr_frame)
